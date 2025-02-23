@@ -299,12 +299,48 @@ form {
     color: red;
  }
 
- .sobre {
+ .sobre h2{
     color: #ccc;
     text-align: center;
     width: 100%;
     height: auto;
+    margin: 2em 0;
  }
+
+ .endereco {
+    display: flex;
+    margin: 2em 0;
+  justify-content: center;
+    padding: 20px 0;
+    background-color: #ccc;
+    width: 100%;
+ }
+
+ .endereco ul {
+  display: block;
+  justify-content: center;
+  margin: 0 2em;
+  width: 100%;
+  height: auto;
+ 
+ }
+
+ .endereco ul li {
+    color: #333;
+    margin: 1em 0;
+    font-size: 22px;
+    font-weight: lighter;
+    border-bottom: 1px solid black;
+ }
+
+ .lista_endereco  span {
+    font-weight: bolder;
+    font-size: 24px;
+    font-style: italic;
+    color: black;
+    padding: 0 1em;
+ }
+ 
 
  .buscar h2,
  .delete h2 {
@@ -312,7 +348,8 @@ form {
     text-align: center;
     margin: 2em 0;
  }
- 
+
+
 
  .rodape {
     display: flex;
@@ -322,7 +359,13 @@ form {
     background-color: #333;
     color: #ccc;
     padding: 10px 0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
 }
 
+.rodape p {
+    color: #ccc;
+}
 
    
