@@ -1,0 +1,27 @@
+<div class="body">
+    <div class="foto">
+         <div class="texto_imagem"><h2>HEISEMBURGER</h2></div>
+        <img src="/imagens/hamburger.jpg"  alt="hamburger">
+    </div>
+    <div class="form">
+        <h2>FAÇA SUA RESERVA</h2>
+        <form action="/reserva" method="post">
+       <div class="inputs">
+        
+       <input type="text" name="nome" id="nome_reserva" placeholder="digite o seu nome" required>
+       <input type="text" name="sobreNome" id="sobrenome" placeholder="digite o seu sobreNome" required>
+       <input type="text" name="horaData" id="horario_data" placeholder="digite o horario e a data" required>
+       <input type="text" name="quantidadePessoa" id="qtd_pessoas" placeholder="digite a quantidade de pessoas" required>
+       <input type="email" name="email" id="email_reserva" placeholder="digite o seu email" required>
+       <div class="botao">
+        <input type="submit" value="enviar">
+       </div>
+         
+           
+       </div>
+    </form>
+             <div class="feedback">
+           <p id="feedback" style="color: white; font-weight: bold;"></p>
+           </div>
+    </div>
+</div>

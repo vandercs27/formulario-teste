@@ -1,0 +1,328 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+
+.cabecalho {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    background-color: #333;
+    color: #ccc;
+    flex-wrap: wrap;
+}
+
+.links ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5px;
+     flex-wrap: wrap;
+}
+
+.links ul li {
+    padding: 0 2em;
+    list-style: none;
+}
+
+.links a {
+    color: #ccc;
+    text-decoration:  none;
+    transition: 1s;
+}
+
+.links a:hover {
+    color: orange;
+}
+
+body {
+    height: 100%;
+    width: 100vw;
+    background-color: black;
+    background-size: cover;
+
+}
+
+.body {
+    display: block;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height:auto;
+    width: 100%;
+    margin: 0 auto;
+    background-color: black;
+   
+}
+
+.foto img{
+    width: 100%;
+    height: auto ;
+}
+
+.texto_imagem {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    color: orange;
+    font-size: 30px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0); /* Fundo semitransparente */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form {
+    display: block;
+    justify-content: center;
+    color: #fff;
+    border: 1px solid #fff;
+    width:100%;
+    height: auto;
+    padding: 4em 0;
+    filter: drop-shadow(2px 2px 3px black);
+    box-shadow: 2px 2px 4px black;
+    border-radius: 80px;
+    margin: 1em 0;
+    text-align: center;
+}
+
+.form h2 {
+    text-align: center;
+}
+
+form {
+  display: block;
+  justify-content: center;
+  width: auto;
+  margin: auto 30px;
+  padding:5em 3em  ;
+  align-items: center;
+  height: auto;
+  
+}
+
+
+.form .voltar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 2em 0;
+    font-size: 18px;
+    
+}
+
+.inputs {
+    margin: 0 auto;
+    width: 400px;
+}
+
+ input{
+    margin: 10px 0;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    width: 400px;
+    height: 50px;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+.botao {
+    margin: 8px 0;
+}
+
+.botao input {
+    background-color: green;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+
+.registro a {
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.lista_usuarios {
+    margin: 2em auto;
+    height: auto;
+    width: auto;
+}
+
+.lista_usuarios ul li, p {
+    color: #333;
+    list-style: none;
+}
+
+
+.home {
+    color: #333;
+    text-align: center;
+    margin: 2em 0;
+    height: auto;
+}
+
+.main_admin {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 2em 0;
+}
+
+.cardapio{
+    display: block;
+    justify-content: space-around;
+    width: 100%;
+   
+    
+    color: #ccc;
+    margin: 3em 0;
+    padding: 30px 0;
+    height: auto;
+}
+
+ .lista_cardapio {
+    margin: 4em 0;
+   padding:10px 0;
+   position: relative;
+       
+}
+
+ .lista_cardapio ul {
+    margin: 2em 0;
+    width: 100vw;
+    height: auto;
+}
+
+.lista_cardapio ul li {
+   margin:3em 4em ;
+   
+   border-bottom: 1px solid #fff;
+   
+  
+
+}
+.lista_cardapio span {
+ margin-right: 0;
+    margin:30em ;
+    color: orange;
+   
+}
+
+.lista_reservas {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.lista_reservas p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.lista_reservas p strong {
+    color: #2c3e50; /* Cor mais escura para o texto em negrito */
+}
+
+.lista_reservas p {
+    color: #555; /* Cor para o texto normal */
+}
+
+.lista_reservas p.error {
+    color: red;
+    font-weight: bold;
+}
+
+.lista_reservas p.success {
+    color: green;
+    font-weight: bold;
+}
+
+
+.hamburger ul {
+    padding: 20px 0;
+
+}
+
+.hamburger span h2 {
+    margin: 0 30%;
+    padding: 0 20%;
+}
+
+.reservas,
+.busca_usuario{
+    box-shadow: 2px 2px 3px black;
+    width: 180px;
+    background-color: green;
+    height: 30px;
+    align-items: center;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.campo_reservas {
+    width: 300px;
+    height: auto;
+}
+
+.reservas a,
+.busca_usuario a{
+   text-decoration: none;
+   color: #ccc;
+   border-radius: 10px;
+   font-weight: bolder;
+ }
+
+ .confirmarReservaTrue {
+    margin: 3em 0;
+    color: rgb(32, 163, 32);
+ }
+
+ .confirmarReservaFalse{
+    margin: 3em 0;
+    color: red;
+ }
+
+ .sobre {
+    color: #ccc;
+    text-align: center;
+    width: 100%;
+    height: auto;
+ }
+
+ .buscar h2,
+ .delete h2 {
+    color: #ccc;
+    text-align: center;
+    margin: 2em 0;
+ }
+ 
+
+ .rodape {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin:0 auto;
+    background-color: #333;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+
+   
