@@ -13,7 +13,7 @@
     background-color: #333;
     color: #ccc;
     flex-wrap: wrap;
-    width: 100%;
+    width: auto;
     
 }
 
@@ -45,9 +45,10 @@
 
 body {
     height: 100%;
-    width: 100dvw;
-    background-color: black;
-    background-size: cover;
+    width: 100%;
+    
+    background-color: #000;
+  
 
 }
 
@@ -59,7 +60,7 @@ body {
     height:auto;
     width: auto;
     margin: 0 auto;
-    background-color: black;
+    
     min-width: 1200px ;
 }
 
@@ -307,44 +308,38 @@ form {
     color: red;
  }
 
- 
+.sobre {
+    margin: 0 auto;
+}
+
+
 
 .sobre h2{
-    color: #ccc;
+    color: orange;
     text-align: center;
     width: 100%;
     height: auto;
-    margin: 2em 0;
-    
+    margin:0 auto;
+    margin-top: 1em;
+   
     
  }
 
  .endereco {
     display: flex;
-    margin: 2em 0;
+    margin:2em auto;
     justify-content: space-between;
-    padding: 20px 10px;
-    background-color: #ccc;
+    padding: 20px 0;
+    
     width: 100%;
-    height: 100dvh;
-    background-color: white;
+    height:auto;
+    position: relative;
+    background-image: url("/imagens/burger.jpg");
+    background-size: cover;
+    background-position-x: right;
+    
  }
-
-
-
- .background img {
-    width:80%;
-    height: auto;
-    object-fit: cover;
-    margin-left: 0 auto;
-    margin-left: 18%;
-    border-radius: 20px;
-    box-shadow: 3px 3px 5px black;
-
- }
-
-
-
+ 
  .endereco ul {
   display: block;
   justify-content: center;
@@ -353,38 +348,64 @@ form {
   height: auto;
  
   
+  
  
  }
 
  .horario {
-    border-right: 1px solid #333 ;
+   margin: 0 auto;
+   max-width:  800px ;
+   min-width: 400px;
+   flex-wrap: wrap;
+   width: auto;
+   
+   
+ }
+
+ .horario  ul{
+    max-width: 600px;
     margin: 0 auto;
-    padding: 0 6em;
+    padding: 0 3em;
+    position: static;
+    border-radius: 30px;
+    width: auto;
+    flex-wrap: wrap;
  }
 
  .endereco ul li {
-    color: #333;
-    margin: 10% 2em;
-    font-size: 22px;
+    color: #fff;
+    margin: 10% auto;
+    font-size: 23px;
     font-weight: lighter;
-    border-bottom: 1px solid black;
-    
+    border-bottom: 1px solid #fff;
+    flex-wrap: wrap;
+    width: auto;
+    text-transform: uppercase;
+    text-align: center;
  }
 
 .lista_endereco {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: flex-start;
-    margin: 0 auto;
+    margin:0.5em auto;
+    height: auto;
+    border-radius: 30px;
+    background-color: #333;
+    opacity: 85%;
+    filter:drop-shadow(4px 4px 6px black);
+    width: 100vw;
  }
 
  .lista_endereco  span {
     font-weight: bolder;
-    font-size: 24px;
+    font-size:26px;
     font-style: italic;
-    color: #000;
+    color: #ccc;
     padding: 0;
-   
+    flex-wrap: wrap;
+    margin: 0 ;
+    width: auto;
  }
 
 
