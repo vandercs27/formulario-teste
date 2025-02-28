@@ -5,6 +5,8 @@ const body_parser = require("body-parser")
 const bcrypt = require("bcrypt")
 const reserva = require("./models/reserva")
 const conn = require("./db/conn")
+const sequelize = require("./db/conn")
+const { Op } = require("sequelize")
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -43,53 +45,84 @@ app.get("/deleteAll", (req, res) => {
     res.render("deleteAll")
 })
 
- // criar reserva
 app.post("/reserva", async (req, res) => {
-    console.log("os dados enviados do body sao: " + req.body)
-
-    const { nome, sobreNome, horaData, quantidadePessoa, email } = req.body
-        
+    console.log("Dados recebidos do corpo da requisição:", req.body);
     
+    const { nome, sobreNome, horaData, quantidadePessoa, email } = req.body;
 
-    try {
-        const totalMesas = 10
-
-        const reservasAtivas = await reserva.count({where: {status: "ocupada"}})
- 
-         const usuario = await reserva.findOne({where: { nome, email }, raw: true})
- 
-         if(reservasAtivas >= totalMesas){
-             return res.status(400).send("todas as mesas estao ocupadas no momento")
-         }
-
-
-       if(usuario){
-            console.log(usuario.nome)
-            console.log("mesa ja esta reservada com esse nome!")
-            return res.status(400).json({sucesso: false, mensagem: "ja existe uma reserva cadastrado com esse nome"})
-           }
-
-          
-       
-
-        await reserva.create({nome, sobreNome, horaData, quantidadePessoa, email})
-        console.log("sua reserva foi feita com sucesso!")
-       
-     
-
-
-        
-        return res.status(201).json({sucesso: true, mensagem: "reserva feita com sucesso!"})
-        
-
-        
-       }catch(err){
-        console.log(err)
-      return  res.status(500).json({message: "erro ao fazer reserva", err})
+    if (!horaData) {
+        return res.status(400).json({ message: "Data e hora da reserva são obrigatórias!" });
     }
 
+    const totalMesas = 10;   
 
-})
+    try {
+        // Garantir que a horaData seja uma string no formato esperado antes de usá-la
+        const dataReserva = horaData ? horaData.split("T")[0] : null; // Exemplo: '2025-02-28'
+
+        if (!dataReserva) {
+            return res.status(400).json({ message: "Data inválida fornecida para a reserva." });
+        }
+
+        // Converte a data para um formato do tipo "2025-02-28" (apenas a data)
+        const dataInicio = new Date(`${dataReserva}T00:00:00`);  // 00:00 do dia
+        const dataFim = new Date(`${dataReserva}T23:59:59`);    // 23:59 do dia
+
+        // Contar as reservas ativas no intervalo de datas e hora
+        const reservasAtivas = await reserva.count({
+            where: {
+                horaData: {
+                    [Op.gte]: dataInicio,  // Maior ou igual ao início do dia
+                    [Op.lte]: dataFim      // Menor ou igual ao final do dia
+                },
+                status: "ocupada"         // Considera apenas as reservas com status "ocupada"
+            }
+        });
+
+        console.log("Reservas ativas:", reservasAtivas); // Debug
+
+        // Verificar se o número de reservas ativas é maior que o número de mesas
+        if (reservasAtivas >= totalMesas) {
+            console.log("Todas as mesas estão ocupadas no momento. Tente novamente mais tarde!");
+            return res.status(400).send("Todas as mesas estão ocupadas no momento.");
+        }
+
+        // Verificar se já existe uma reserva com o mesmo nome e email
+        const usuario = await reserva.findOne({
+            where: {
+                nome,
+                email,
+                horaData: {
+                    [Op.gte]: dataInicio,
+                    [Op.lte]: dataFim
+                }
+            },
+            raw: true
+        });
+
+        if (usuario) {
+            console.log("Mesa já está reservada com esse nome!");
+            return res.status(400).json({ sucesso: false, mensagem: "Já existe uma reserva cadastrada com esse nome." });
+        }
+
+        if (reservasAtivas + parseInt(quantidadePessoa) > totalMesas) {
+            console.log("Não há mesas suficientes para essa quantidade de pessoas!");
+            return res.status(400).send("Não há mesas suficientes para essa quantidade de pessoas!");
+        }
+        
+
+        // Criar a reserva
+        await reserva.create({ nome, sobreNome, horaData, quantidadePessoa, email, status: "reservada" });
+        console.log("Sua reserva foi feita com sucesso!");
+
+        return res.status(201).json({ sucesso: true, mensagem: "Reserva feita com sucesso!" });
+        
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Erro ao fazer reserva", err });
+    }
+});
+
 
         app.post("/liberar/:id", async (req, res) => {
             try {
@@ -211,9 +244,11 @@ app.get("/api/buscarReserva", async (req, res) => {
 
      } )
 
-     reserva.sync({alter: true})
-     .then(() => console.log("tabela sincronizada!"))
-     .catch(err => console.error("erro ao sicronizar a tabela", err))
+    if(process.env.NODE_ENV === "development"){
+         reserva.sync({alter: true})
+        .then(() => console.log("tabela sincronizada!"))
+        .catch(err => console.error("erro ao sicronizar a tabela", err))
+    }
 
 
 
