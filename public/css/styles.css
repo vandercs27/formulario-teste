@@ -84,6 +84,7 @@ body {
     border-radius: 5px;
 }
 
+
 .form {
     display: block;
     justify-content: center;
@@ -143,7 +144,7 @@ form {
 }
 
 .botao {
-    margin: 8px 0;
+    margin: 2px 0;
 }
 
 .botao input {
@@ -255,13 +256,6 @@ form {
 
 
 
-.lista_reservas {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
 
 .lista_reservas p {
     font-size: 16px;
@@ -287,8 +281,11 @@ form {
     font-weight: bold;
 }
 
+
+
 .reservas,
-.busca_usuario{
+.busca_usuario
+{
     box-shadow: 2px 2px 3px black;
     width: 180px;
     background-color: green;
@@ -297,6 +294,7 @@ form {
     line-height: 30px;
     text-align: center;
     border-radius: 10px;
+    
 }
 .confirmarReservaTrue {
     margin: 3em 0;
@@ -307,6 +305,8 @@ form {
     margin: 3em 0;
     color: red;
  }
+
+
 
 .sobre {
     margin: 0 auto;
@@ -417,7 +417,21 @@ form {
     text-align: center;
     margin: 2em 0;
  }
+ 
+ .deleteAll {
+    padding: 35px;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    margin: 2em auto;
+    color: #ccc;
+    text-align: center;
+    text-transform:  uppercase;
+ }
 
+ .deleteAll input{
+    background-color: red;
+    color: #fff;
+ }
 
 
  .rodape {

@@ -33,7 +33,15 @@ const Reserva = db.define("Reserva", {
     email: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    
+    status: {
+        type: DataTypes.ENUM("reservada","ocupada","liberada"),
+        allowNull: false,
+        defaultValue: "reservada"
     }
+
+
 })
 
 module.exports = Reserva

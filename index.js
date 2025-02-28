@@ -39,6 +39,9 @@ app.get("/deletarReserva", (req, res) => {
 app.get("/buscarReserva", (req, res) => {
     res.render("buscarReserva")
 })
+app.get("/deleteAll", (req, res) => {
+    res.render("deleteAll")
+})
 
  // criar reserva
 app.post("/reserva", async (req, res) => {
@@ -49,20 +52,31 @@ app.post("/reserva", async (req, res) => {
     
 
     try {
+        const totalMesas = 10
 
-        const usuario = await reserva.findOne({where: { nome, sobreNome, email }, raw: true})
-       
+        const reservasAtivas = await reserva.count({where: {status: "ocupada"}})
+ 
+         const usuario = await reserva.findOne({where: { nome, email }, raw: true})
+ 
+         if(reservasAtivas >= totalMesas){
+             return res.status(400).send("todas as mesas estao ocupadas no momento")
+         }
 
-        if(usuario){
+
+       if(usuario){
             console.log(usuario.nome)
             console.log("mesa ja esta reservada com esse nome!")
             return res.status(400).json({sucesso: false, mensagem: "ja existe uma reserva cadastrado com esse nome"})
            }
 
+          
        
 
         await reserva.create({nome, sobreNome, horaData, quantidadePessoa, email})
         console.log("sua reserva foi feita com sucesso!")
+       
+     
+
 
         
         return res.status(201).json({sucesso: true, mensagem: "reserva feita com sucesso!"})
@@ -77,8 +91,20 @@ app.post("/reserva", async (req, res) => {
 
 })
 
+        app.post("/liberar/:id", async (req, res) => {
+            try {
+                const {id} = req.params
+                await reserva.update({status: "liberada"}, {where: {id}})
+                res.redirect("/reservas")
+        
+            }catch(error){
+                console.log("erro ao liberar a mesa",error)
+                res.status(500).json("erro ao liberar a mesa")
+            }
+        })
 
-// deletar reserva
+
+// deletar reserva   
 app.post("/deletarReserva",async (req, res) => {
    
 
@@ -163,7 +189,31 @@ app.get("/api/buscarReserva", async (req, res) => {
         return res.status(500).json({ mensagem: "Erro interno do servidor", erro: error.message });
     }
 });
+    
+    // deletar todo o banco de datos
+    app.post("/deleteAll", async (req, res) => {
 
+        try {
+             
+      
+          await reserva.destroy({
+             where: {},
+             truncate: true
+         })
+
+          console.log("reservas deletadas com sucesso!")
+             return res.status(200).json({message: "reservas deletadas com sucesso!"})
+
+         }catch(error){
+             console.log("erro ao buscar reservas")
+             return res.status(500).json({message: "erro ao buscar reservas", error})
+         }
+
+     } )
+
+     reserva.sync({alter: true})
+     .then(() => console.log("tabela sincronizada!"))
+     .catch(err => console.error("erro ao sicronizar a tabela", err))
 
 
 
@@ -172,3 +222,5 @@ app.get("/api/buscarReserva", async (req, res) => {
 }).catch((err) => {
     console.log(err)
 })
+
+   
