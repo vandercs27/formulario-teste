@@ -1,52 +1,63 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Pegando os formulários individuais
-    const formBuscar = document.querySelector(".buscar form");
+    const formBuscar = document.querySelector("#formBuscar");
     const formCancelar = document.querySelector(".delete form");
     const formReservar = document.querySelector(".body .form form");
 
-    // Função para buscar reserva
-    if (formBuscar) {
-        formBuscar.addEventListener("submit", async function (event) {
-            event.preventDefault();
+        // Função para buscar reserva
+        if (formBuscar) {
+            formBuscar.addEventListener("submit", async function (event) {
+                event.preventDefault();
 
-            const nomeBusca = document.querySelector("#nome_busca").value;
-            const emailBusca = document.querySelector("#email_busca").value;
-            const listaReservas = document.querySelector(".lista_reservas");
+                const nomeBusca = document.querySelector("#nome_busca").value;
+                const emailBusca = document.querySelector("#email_busca").value;
+                const listaReservas = document.querySelector(".lista_reservas");
 
-            if (!nomeBusca || !emailBusca) {
-                listaReservas.innerHTML = `<p style="color: red;">Por favor, preencha todos os campos.</p>`;
-                return;
-            }
+                if (!nomeBusca || !emailBusca) {
+                    listaReservas.innerHTML = `<p style="color: red;">Por favor, preencha todos os campos.</p>`;
+                    return;
+                }
 
-            try {
-                listaReservas.innerHTML = "<p>Buscando reserva...</p>";
+                try {
 
-                const response = await fetch(`/api/buscarReserva?nome=${encodeURIComponent(nomeBusca)}&email=${encodeURIComponent(emailBusca)}`);
+                    
+                    listaReservas.innerHTML = "<p>Buscando reserva...</p>";
+                    
+                    const response = await fetch(`http://localhost:3000/buscarReserva`,{
+                        method: "post",
+                        headers: {"content-type": "application/json"},
+                        body: JSON.stringify({nome: nomeBusca, email: emailBusca})
+                    });
 
-                if (!response.ok) {
+                   
+
+                    if (!response.ok) {
+                        const erroData = await  response.json()
+                        listaReservas.innerHTML = `<p style="color: red;">Erro: ${erroData.message}</p>`;
+                        return;
+                    }
+
                     const data = await response.json();
-                    listaReservas.innerHTML = `<p style="color: red;">Erro: ${data.mensagem}</p>`;
-                    return;
+                    console.log("Resposta do backend:", data);
+
+                    
+
+                    if (!data) {
+                        listaReservas.innerHTML = `<p style="color: red;">Nenhuma reserva encontrada.</p>`;
+                        return;
+                    }
+
+                    listaReservas.innerHTML = `
+                        <p><strong>Nome:</strong> ${data.nome}</p>
+                        <p><strong>Email:</strong> ${data.email}</p>
+                        <p><strong>Data e Hora:</strong> ${data.horaData || "Não informado"}</p>
+                        <p><strong>Quantidade de Pessoas:</strong> ${data.quantidadePessoa || "Não informado"}</p>
+                    `;
+                } catch (error) {
+                    console.error("Erro ao buscar reserva:", error);
+                    listaReservas.innerHTML = `<p style="color: red;">Erro ao buscar a reserva! Detalhe: ${error.message}</p>`;
                 }
-
-                const data = await response.json();
-
-                if (!data.reserva) {
-                    listaReservas.innerHTML = `<p style="color: red;">Nenhuma reserva encontrada.</p>`;
-                    return;
-                }
-
-                listaReservas.innerHTML = `
-                    <p><strong>Nome:</strong> ${data.reserva.nome}</p>
-                    <p><strong>Email:</strong> ${data.reserva.email}</p>
-                    <p><strong>Data e Hora:</strong> ${data.reserva.horaData || "Não informado"}</p>
-                    <p><strong>Quantidade de Pessoas:</strong> ${data.reserva.quantidadePessoa || "Não informado"}</p>
-                `;
-            } catch (error) {
-                console.error("Erro ao buscar reserva:", error);
-                listaReservas.innerHTML = `<p style="color: red;">Erro ao buscar a reserva! Detalhe: ${error.message}</p>`;
-            }
-        });
+            });
     }
 
     // Função para deletar reserva
@@ -131,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     feedback.style.color = "red";
                 }
             } catch (error) {
-                console.error("Erro ao reservar:", error);
+              
                 feedback.innerHTML = `Erro ao fazer reserva! Detalhe: ${error.message}`;
                 feedback.style.color = "red";
             }
