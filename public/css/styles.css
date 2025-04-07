@@ -14,11 +14,19 @@
     color: #ccc;
     flex-wrap: wrap;
     width: auto;
+    height: auto;
+    
     
 }
 
 .logo {
     text-shadow: 1px 1px 2px black;
+    margin: 1em 0;
+}
+
+.links {
+    width:auto;
+    
 }
 
 .links ul {
@@ -29,7 +37,7 @@
 }
 
 .links ul li {
-    padding: 0 2em;
+    padding: 1em 2em;
     list-style: none;
 }
 
@@ -47,7 +55,8 @@ body {
     height: 100%;
     width: 100%;
     background-color: #000;
-    
+   
+    flex-wrap: wrap;
 }
 
 .body {
@@ -56,14 +65,18 @@ body {
     text-align: center;
     align-items: center;
     height:auto;
-    width: auto;
+    width: 100%;
     margin: 0 auto;
-    min-width: 1200px ;
+    min-width: 100% ;
+    flex-wrap: wrap;
 }
 
 .foto img{
-    width: 100%;
+    width:100%;
     height: auto ;
+    max-width: max-content;
+ 
+   
 }
 
 .texto_imagem {
@@ -72,13 +85,18 @@ body {
     position: absolute;
     top: 40%;
     left: 30%;
+    margin: 0 auto;
     transform: translate(-50%, -50%);
     color: orange;
     font-size: 30px;
     font-weight: bold;
     background: rgba(0, 0, 0, 0); /* Fundo semitransparente */
-    padding: 10px;
+    
     border-radius: 5px;
+}
+
+.texto_imagem h2 {
+    margin: 0 20%;
 }
 
 
@@ -94,6 +112,9 @@ body {
     box-shadow: 2px 2px 4px black;
     border-radius: 80px;
     text-align: center;
+    margin:5em auto;
+    
+
     
     
 }
@@ -105,11 +126,14 @@ body {
 form {
   display: block;
   justify-content: center;
+  max-width: 700px;
+  min-width: 400px;
   width: 100%;
   margin:0 auto ;
   padding:5em 3em  ;
   align-items: center;
   height: 100%;
+ 
   
 }
 
@@ -123,36 +147,44 @@ form {
 }
 
 .inputs {
+    
     margin: 0 auto;
-    width: 400px;
+    width: 80% ;
+    
 }
 
  input{
-    margin: 10px 0;
+    margin: 10px 10px;
     border: none;
     text-align: center;
     border-radius: 10px;
-    width: 400px;
-   
+    width:80%;
+    max-width: 400px;
+    
     height: 50px;
 }
 
 ::placeholder {
     text-align: center;
+    width: auto;
 }
 
 .botao {
-    margin: 2px 0;
+   margin: 0 auto;
+   max-width: 300px;
+   min-width: 100px;
+  
 }
 
 .botao input {
     background-color: green;
-    width: 200px;
+    width: 80%;
     height: 40px;
     border: none;
     border-radius: 20px;
     color: #fff;
     cursor: pointer;
+    
 }
 
 
@@ -224,9 +256,10 @@ form {
 }
 
 .lista_cardapio ul li {
-   margin:3em 5em;
+   margin:3em 2em;
    border-bottom: 1px solid #fff;
    width: auto;
+ flex-wrap: wrap;
 }
 
 .lista_cardapio span {
@@ -242,6 +275,7 @@ form {
  .batatas,
  .bebidas  ul li{
    text-align: start;
+  
  }
 
  .hamburger ul li span,
@@ -249,7 +283,8 @@ form {
  .bebidas ul li span {
    text-align: center;
    font-size: 20px;
-   padding: 0 35em;
+   padding: 0 90%;
+   margin: 0 auto;
 }
 
 .lista_reservas {
@@ -420,18 +455,43 @@ form {
  }
  
  .deleteAll {
-    padding: 35px;
+    padding:2em ;
     border: 1px solid #ccc;
     border-radius: 35px;
-    margin: 2em auto;
+    margin: 5em auto;
     color: #ccc;
     text-align: center;
     text-transform:  uppercase;
+    width: 100%;
+ }
+
+ .deletetudo {
+    margin: 1em auto;
+    padding: 2em;
+    width:100% ;
+    min-width: 50%;
+   
+
+ }
+
+ .formdelete {
+    margin: 0 -5em;
+    padding: 0 -50%;
+ }
+
+ .redbutton {
+ 
+   margin: 10%;
+   margin-right: 70%;
+   width:80%;
+   min-width: 2%;
+  
  }
 
  .deleteAll input{
     background-color: red;
     color: #fff;
+    width: 60%;
  }
 
 
