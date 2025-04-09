@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const formBuscar = document.querySelector("#formBuscar");
     const formCancelar = document.querySelector(".delete form");
     const formReservar = document.querySelector(".body .form form");
+    
+   
 
         // Função para buscar reserva
         if (formBuscar) {
@@ -101,9 +103,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Função para fazer reserva
+    function validarEmail(email){
+       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       return regex.test(email)
+
+
+   
+    }
     if (formReservar) {
         formReservar.addEventListener("submit", async function (event) {
             event.preventDefault();
+
+
 
             const nomeReserva = document.querySelector("#nome_reserva").value;
             const sobreNome = document.querySelector("#sobrenome").value;
@@ -112,11 +123,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const emailReserva = document.querySelector("#email_reserva").value;
             const feedback = document.querySelector(".body .feedback p");
 
+          
+
             if (!nomeReserva || !sobreNome || !horaData || !quantidadePessoa || !emailReserva) {
                 feedback.innerHTML = "Por favor, preencha todos os campos.";
                 feedback.style.color = "red";
                 return;
             }
+
+            if(!validarEmail(emailReserva)){
+                feedback.innerHTML = "E-mail inválido!"
+                feedback.style.color = "red"
+                return
+            }
+
+
 
             try {
                 const response = await fetch(`/reserva`, {
@@ -132,6 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         email: emailReserva
                     })
                 });
+
+               
 
                 if (response.ok) {
                     feedback.innerHTML = "Reserva realizada com sucesso!";

@@ -3,15 +3,24 @@ const reserva = require("../models/Reserva");
 const { Op } = require("sequelize");
 const router = express.Router();
 const totalMesas = 10;
+const nodemailer = require("nodemailer")
+require('dotenv').config();
+
+
 
 // Rota para criar uma nova reserva
     router.post("/reserva",  async (req, res) => {
     console.log("Dados recebidos do corpo da requisição:", req.body);
     console.log(req.headers)
-
-   
-
+    
     const { nome, sobreNome, horaData, quantidadePessoa, email } = req.body;
+
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!regexEmail.test(email)){
+        // voce pode renderizar a mesma pagina com uma mensagem de erro.
+        return res.render("reserva", { erro: "email inválido!"})
+    }
 
     if (!horaData) {
         return res.status(400).json({ message: "Data e hora da reserva são obrigatórias!" });
@@ -49,12 +58,33 @@ const totalMesas = 10;
 
         await reserva.create({ nome, sobreNome, horaData, quantidadePessoa, email, status: "reservada" });
         console.log("Reserva feita com sucesso!");
-        return res.status(201).json({ sucesso: true, mensagem: "Reserva feita com sucesso!" });
 
+         // ✅ Configurar envio de e-mail
+         const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: "vandercs80@gmail.com",
+                pass: "gmlrdjhomjwxwfoh"
+            }
+        });
+
+        const mailOptions = {
+            from: "vandercs80@gmail.com", // corrigido
+            to: email,
+            subject: "Confirmação de Reserva",
+            text: `Olá ${nome}, sua reserva para ${quantidadePessoa} pessoa(s) foi confirmada para o dia ${horaData}. Obrigado!`
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log("E-mail de confirmação enviado!");
+        return res.status(201).json({ sucesso: true, mensagem: "Reserva feita com sucesso!" }); 
+          
     } catch (error) {
         console.error("Erro ao processar a reserva:", error);
         return res.status(500).json({ message: "Erro interno do servidor." });
     }
+
+
 });
 
   // rota para buscar reservas
@@ -114,6 +144,31 @@ router.post("/deletarReserva", async (req, res) => {
         console.error("Erro ao deletar reserva:", error);
         return res.status(500).json({ mensagem: "Erro ao deletar reserva", error });
     }
-});
+})
 
-module.exports = router;
+// rota para deletar tudo
+router.post("/deleteAll", async (req, res) => {
+   
+    try {
+      
+       
+           
+
+       
+
+        const eraseDb = await reserva.destroy( { where:{} } );
+
+        if (eraseDb) {
+            console.log("banco de dados deletado com sucesso!");
+            return res.status(200).json({ mensagem: "banco de dados deletado com sucesso!" });
+        } else {
+            return res.status(400).json({ mensagem: "Erro ao deletar o banco de dados!" });
+        }
+    } catch (error) {
+        console.error("Erro ao deletar o banco de dados:", error);
+        return res.status(500).json({ mensagem: "Erro ao deletar o banco de dados", error });
+    }
+
+})
+
+module.exports = router
