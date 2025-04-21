@@ -30,6 +30,7 @@ app.get("/sobre", (req, res) => res.render("sobre"));
 app.get("/deletarReserva", (req, res) => res.render("deletarReserva"));
 app.get("/buscarReserva", (req, res) => res.render("buscarReserva"));
 app.get("/deleteAll", (req, res) => res.render("deleteAll"));
+app.get("/allReservs", (req, res) => res.render("allReservs"));
 
 // Sincronizar banco de dados e iniciar servidor
 conn.sync().then(() => {

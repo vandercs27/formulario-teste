@@ -3,8 +3,11 @@ const reserva = require("../models/Reserva");
 const { Op } = require("sequelize");
 const router = express.Router();
 const totalMesas = 10;
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
+const Reserva = require("../models/Reserva");
+const { raw } = require("body-parser");
 require('dotenv').config();
+const dayjs = require("dayjs")
 
 
 
@@ -122,14 +125,48 @@ require('dotenv').config();
 
 })
 
+// listar todas as reservas
+
+
+router.get("/allReservs", async (req, res) => {
+    const {nome} = req.query
+ 
+   try{
+
+    let todasReservas
+    
+    if(nome){
+        todasReservas = await Reserva.findAll({where: {nome}, raw: true})
+    }else{
+        todasReservas = await Reserva.findAll({ raw: true})
+    }
+     
+    // formatar data
+    todasReservas.forEach(reserva => {
+        reserva.horaData = dayjs(reserva.horaData).format("DD/MM/YYYY HH:mm")
+    })
+
+    return res.render("allReservs", {todasReservas})
+
+   }catch(error){
+    console.log("erro ao buscar reserva!", error)
+    res.status(500).json({message: "erro ao buscar reserva!"})
+   }
+
+
+})
+
 
 // Rota para deletar uma reserva
 router.post("/deletarReserva", async (req, res) => {
+    const { nome, email } = req.body;
+    console.log(nome,email)
     try {
-        const { nome, email } = req.body;
+         const buscando = await reserva.findOne({where: {nome, email}})
 
-        if (!nome || !email) {
-            return res.status(400).json({ mensagem: "Nome e email são obrigatórios!" });
+        if (!buscando) {
+            console.log("nome e emails sao obrigatorios!")
+             res.status(400).json({ mensagem: "Nome e email são obrigatórios!" });
         }
 
         const deletado = await reserva.destroy({ where: { nome, email } });
@@ -151,12 +188,7 @@ router.post("/deleteAll", async (req, res) => {
    
     try {
       
-       
-           
-
-       
-
-        const eraseDb = await reserva.destroy( { where:{} } );
+       const eraseDb = await reserva.destroy( { where:{} } );
 
         if (eraseDb) {
             console.log("banco de dados deletado com sucesso!");

@@ -289,21 +289,34 @@ form {
 
 .lista_reservas {
     margin: 2em 0;
+   
+    text-align: center;
+}
+
+ .titleList h2 {
+  color: orange;
+  text-align: center;
+  margin: 2em;
 }
 
 
 .lista_reservas p {
+    
     font-size: 16px;
     margin: 10px 0;
     color: #333;
 }
 
 .lista_reservas p strong {
-    color: #2c3e50; /* Cor mais escura para o texto em negrito */
+    color: orange; /* Cor mais escura para o texto em negrito */
+    
+    margin: 0 10px;
 }
 
 .lista_reservas p {
-    color: #555; /* Cor para o texto normal */
+    
+    color: white; /* Cor para o texto normal */
+
 }
 
 .lista_reservas p.error {
@@ -314,6 +327,40 @@ form {
 .lista_reservas p.success {
     color: green;
     font-weight: bold;
+}
+
+.lista {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1px;
+    border: 1px solid white;
+    width:auto;
+    max-width:1450px;
+    margin: 2em;
+    box-sizing: border-box;
+}
+
+.sublista {
+    width:auto;
+    margin: 7px 0;
+    border: 1px solid orange;
+   
+}
+
+.lista span {
+    text-align: left;
+    color: orange;
+    font-size: 20px;
+    margin: 0 7px;
+    right: 0;
+}
+
+.lista p{
+    
+    margin: 2em 0;
+    color: #ccc;
+    padding: 0 10px;
 }
 
 
@@ -430,7 +477,7 @@ form {
     background-color: #333;
     opacity: 85%;
     filter:drop-shadow(4px 4px 6px black);
-    width: 100vw;
+    width: 600px;
  }
 
  .lista_endereco  span {

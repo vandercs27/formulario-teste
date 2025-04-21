@@ -1,0 +1,16 @@
+<div class="titleList">
+        <h2>TODAS AS RESERVAS</h2>
+    </div>
+<div class="lista">
+    
+   {{#each todasReservas}}
+    <div class="sublista">
+        <p><span>nome: </span> {{this.nome}}</p>
+    <p><span>sobrenome: </span> {{this.sobreNome}}</p>
+    <p><span>hora e data: </span> {{this.horaData}}</p>
+    <p><span>quantidade de pessoas:</span> {{this.quantidadePessoa}}</p>
+    <p><span>e-mail:</span> {{this.email}}</p>
+    </div>
+   {{/each}}
+    
+</div>
