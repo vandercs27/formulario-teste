@@ -15,6 +15,7 @@
     flex-wrap: wrap;
     width: auto;
     height: auto;
+   
     
     
 }
@@ -22,10 +23,12 @@
 .logo {
     text-shadow: 1px 1px 2px black;
     margin: 1em 0;
+    color: orange;
 }
 
 .links {
     width:auto;
+    
     
 }
 
@@ -44,18 +47,19 @@
 .links a {
     color: #ccc;
     text-decoration:  none;
-    transition: 1s;
+    transition: tranform 0.3ease;
 }
 
 .links a:hover {
     color: orange;
+    transform: scale(1.5);
 }
 
 body {
-    height: 100%;
+    height: auto;
     width: 100%;
     background-color: #000;
-   
+    
     flex-wrap: wrap;
 }
 
@@ -79,25 +83,27 @@ body {
    
 }
 
-.texto_imagem {
+/*.texto_imagem {
     text-shadow: 3px 3px 5px orangered;
     cursor: pointer;
     position: absolute;
-    top: 40%;
-    left: 30%;
+    top:auto;
+    left: auto;
     margin: 0 auto;
-    transform: translate(-50%, -50%);
+    transform: translate(auto, auto);
     color: orange;
     font-size: 30px;
     font-weight: bold;
-    background: rgba(0, 0, 0, 0); /* Fundo semitransparente */
+    background: rgba(0, 0, 0, 0); /* Fundo semitransparente 
     
     border-radius: 5px;
 }
 
+
 .texto_imagem h2 {
     margin: 0 20%;
 }
+    */
 
 
 .form {
@@ -334,16 +340,19 @@ form {
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 1px;
-    border: 1px solid white;
+    height: auto;
     width:auto;
     max-width:1450px;
-    margin: 2em;
+   
+    margin: 2em 0;
     box-sizing: border-box;
+    
 }
 
 .sublista {
     width:auto;
     margin: 7px 0;
+    height: auto;
     border: 1px solid orange;
    
 }
